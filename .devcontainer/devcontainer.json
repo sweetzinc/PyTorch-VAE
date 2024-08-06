@@ -4,7 +4,10 @@
 	"name": "asn-vaetorch",
     "build": { "dockerfile": "./Dockerfile" },
     "workspaceFolder": "/workspace",
-
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+        "source=C:\\docker_share,target=/data,type=bind,consistency=cached"
+      ],
     "runArgs": ["--gpus", "all"],
     "remoteEnv": {
         "PATH": "${containerEnv:PATH}:/usr/local/cuda/bin",
