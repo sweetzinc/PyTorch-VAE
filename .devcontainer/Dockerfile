@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.8.0-devel-ubuntu22.04
+FROM nvidia/cuda:11.1.1-cudnn8-devel-ubuntu20.04
 
 ENV FORCE_CUDA="1"
 ENV MMCV_WITH_OPS=1
@@ -16,15 +16,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-wheel
 
 # Version info from https://pytorch.org/get-started/previous-versions/    
-RUN pip3 install --no-cache-dir --index-url https://download.pytorch.org/whl/cu118 \
+RUN pip3 install --no-cache-dir -f https://download.pytorch.org/whl/cu111/torch_stable.html \
     wheel                   \
-    "torch==2.0.1"          \
-    "torchvision==0.15.2"   \
-    "torchaudio==2.0.2"    
-
-RUN pip3 install --upgrade pip \
-    && pip3 install   \
-        setuptools    
+    "torch==1.10.1+cu111"   \
+    "torchvision==0.11.2+cu111" \
+    "torchaudio==0.10.1" 
 
 # Install requirements
 COPY ./docker_requirements.txt /tmp/requirements.txt
